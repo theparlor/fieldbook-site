@@ -144,6 +144,221 @@
   </div>
 </div></section>
 
+<section id="diagrams">
+<style>
+  #diagrams .diag-pair{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:32px}
+  #diagrams .diag-block{background:var(--ground-2);border:1px solid var(--line);border-radius:12px;padding:22px 20px 18px}
+  #diagrams .diag-label{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--brass);font-weight:600;margin-bottom:12px;font-family:'Spectral'}
+  @media(max-width:760px){#diagrams .diag-pair{grid-template-columns:1fr}}
+</style>
+<div class="wrap">
+  <div class="kicker">How it comes to be &middot; where it lives</div>
+  <h2>Two views of the machine.</h2>
+  <p class="body">The first diagram traces how a single Fieldbook run unfolds &mdash; from a receipt landing in the inbox through the append-only ledger spine to the two outputs that never collapse. The second shows where Fieldbook sits in the portfolio: which systems feed it, what it produces, and the Intent governance loop that holds it together.</p>
+
+  <div class="diag-pair">
+
+    <!-- DIAGRAM 1: FLOW — How it comes to be -->
+    <div class="diag-block">
+      <div class="diag-label">How it comes to be</div>
+      <svg viewBox="0 0 480 310" width="100%" height="auto" style="max-width:480px;display:block" xmlns="http://www.w3.org/2000/svg" aria-label="Flow diagram: how a Fieldbook pipeline run works">
+        <defs>
+          <linearGradient id="fb-flow" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#E8772B"/>
+            <stop offset="100%" stop-color="#7E8A98"/>
+          </linearGradient>
+          <linearGradient id="fb-ledger" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#C9A45C" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#211a13" stop-opacity="0.9"/>
+          </linearGradient>
+          <marker id="fb-arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#C9A45C" opacity="0.75"/>
+          </marker>
+          <marker id="fb-arr-steel" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#7E8A98" opacity="0.75"/>
+          </marker>
+          <marker id="fb-arr-mol" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#E8772B" opacity="0.75"/>
+          </marker>
+        </defs>
+
+        <!-- Gradient flow bar at top -->
+        <rect x="8" y="14" width="464" height="3" rx="2" fill="url(#fb-flow)" opacity="0.5"/>
+
+        <!-- INTAKE node -->
+        <rect x="8" y="50" width="74" height="44" rx="7" fill="#2b2219" stroke="#E8772B" stroke-width="1.5"/>
+        <text x="45" y="67" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#F2A24A" font-weight="600" letter-spacing="1.5">INTAKE</text>
+        <text x="45" y="80" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#B3A890">receipt</text>
+
+        <!-- arrow INTAKE → LEDGER -->
+        <line x1="82" y1="72" x2="100" y2="72" stroke="#C9A45C" stroke-width="1.4" marker-end="url(#fb-arr)"/>
+
+        <!-- LEDGER node — highlighted as spine, taller -->
+        <rect x="102" y="38" width="80" height="68" rx="8" fill="url(#fb-ledger)" stroke="#C9A45C" stroke-width="2"/>
+        <text x="142" y="60" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#C9A45C" font-weight="600" letter-spacing="1.5">LEDGER</text>
+        <text x="142" y="73" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#B3A890">append-only</text>
+        <text x="142" y="85" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#B3A890">spine</text>
+        <!-- spine badge -->
+        <rect x="113" y="92" width="58" height="10" rx="3" fill="rgba(201,164,92,0.12)" stroke="#9A7F4E" stroke-width="0.7"/>
+        <text x="142" y="100" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="6.5" fill="#C9A45C">source of truth</text>
+
+        <!-- arrow LEDGER → COMPLY -->
+        <line x1="182" y1="72" x2="200" y2="72" stroke="#C9A45C" stroke-width="1.4" marker-end="url(#fb-arr)"/>
+
+        <!-- COMPLY node -->
+        <rect x="202" y="50" width="74" height="44" rx="7" fill="#2b2219" stroke="#C9A45C" stroke-width="1.2"/>
+        <text x="239" y="67" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#C9A45C" font-weight="600" letter-spacing="1.5">COMPLY</text>
+        <text x="239" y="80" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#B3A890">policy audit</text>
+
+        <!-- arrow COMPLY → NARRATE -->
+        <line x1="276" y1="72" x2="294" y2="72" stroke="#C9A45C" stroke-width="1.4" marker-end="url(#fb-arr)"/>
+
+        <!-- NARRATE node -->
+        <rect x="296" y="50" width="74" height="44" rx="7" fill="#2b2219" stroke="#C9A45C" stroke-width="1.2"/>
+        <text x="333" y="67" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#C9A45C" font-weight="600" letter-spacing="1.5">NARRATE</text>
+        <text x="333" y="80" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#B3A890">persona-dep</text>
+
+        <!-- arrow NARRATE → EXPORT -->
+        <line x1="370" y1="72" x2="388" y2="72" stroke="#C9A45C" stroke-width="1.4" marker-end="url(#fb-arr)"/>
+
+        <!-- EXPORT node -->
+        <rect x="390" y="50" width="74" height="44" rx="7" fill="#2b2219" stroke="#7E8A98" stroke-width="1.2"/>
+        <text x="427" y="67" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#AAB4C0" font-weight="600" letter-spacing="1.5">EXPORT</text>
+        <text x="427" y="80" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#B3A890">projection</text>
+
+        <!-- Two-output split from NARRATE/EXPORT -->
+        <!-- fork point -->
+        <line x1="427" y1="94" x2="427" y2="130" stroke="#7E8A98" stroke-width="1" stroke-opacity="0.7"/>
+        <line x1="427" y1="130" x2="340" y2="130" stroke="#7E8A98" stroke-width="1" stroke-opacity="0.7"/>
+        <line x1="340" y1="130" x2="340" y2="148" stroke="#7E8A98" stroke-width="1" stroke-opacity="0.6" marker-end="url(#fb-arr-steel)"/>
+        <line x1="427" y1="130" x2="427" y2="148" stroke="#E8772B" stroke-width="1" stroke-opacity="0.7" marker-end="url(#fb-arr-mol)"/>
+
+        <!-- Output A: compliance audit -->
+        <rect x="290" y="150" width="100" height="36" rx="7" fill="#17120e" stroke="#5B6573" stroke-width="1.2"/>
+        <text x="340" y="163" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#AAB4C0">compliance</text>
+        <text x="340" y="175" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#AAB4C0">audit</text>
+
+        <!-- Output B: narrative model -->
+        <rect x="377" y="150" width="100" height="36" rx="7" fill="#17120e" stroke="#E8772B" stroke-width="1.2"/>
+        <text x="427" y="163" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#F2A24A">narrative</text>
+        <text x="427" y="175" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#F2A24A">model</text>
+
+        <!-- persona labels under output B -->
+        <text x="427" y="202" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="7" fill="#9A7F4E" font-style="italic">1099 · W-2</text>
+
+        <!-- "never collapsed" label -->
+        <text x="383" y="222" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="7.5" fill="#9A7F4E" font-style="italic">never collapsed</text>
+
+        <!-- Verbatim badge under compliance -->
+        <rect x="300" y="192" width="78" height="13" rx="4" fill="rgba(201,164,92,0.10)" stroke="#9A7F4E" stroke-width="0.8"/>
+        <text x="339" y="201" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="7" fill="#C9A45C">policy-cited</text>
+
+        <!-- LEDGER is spine annotation — vertical line left of LEDGER -->
+        <line x1="97" y1="44" x2="97" y2="102" stroke="#C9A45C" stroke-width="1" stroke-opacity="0.35" stroke-dasharray="3,3"/>
+        <text x="92" y="44" text-anchor="end" font-family="'Spectral',Georgia,serif" font-size="7" fill="#9A7F4E" font-style="italic">spine</text>
+
+        <!-- Bottom label -->
+        <text x="240" y="296" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#85795F">INTAKE &rarr; LEDGER (spine) &rarr; COMPLY &rarr; NARRATE &rarr; EXPORT &rarr; Two-output package</text>
+      </svg>
+    </div>
+
+    <!-- DIAGRAM 2: ARCHITECTURE — Where it lives -->
+    <div class="diag-block">
+      <div class="diag-label">Where it lives</div>
+      <svg viewBox="0 0 480 310" width="100%" height="auto" style="max-width:480px;display:block" xmlns="http://www.w3.org/2000/svg" aria-label="Architecture diagram: Fieldbook position in the portfolio">
+        <defs>
+          <linearGradient id="fb-ag-fieldbook" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#E8772B" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#2b2219" stop-opacity="0.9"/>
+          </linearGradient>
+          <linearGradient id="fb-ag-ledger" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#C9A45C" stop-opacity="0.20"/>
+            <stop offset="100%" stop-color="#211a13" stop-opacity="0.85"/>
+          </linearGradient>
+          <marker id="fb-aarr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#C9A45C" opacity="0.8"/>
+          </marker>
+          <marker id="fb-aarr-out" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#E8772B" opacity="0.8"/>
+          </marker>
+          <marker id="fb-aarr-steel" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#7E8A98" opacity="0.7"/>
+          </marker>
+        </defs>
+
+        <!-- Intent loop veil — faint background rectangle -->
+        <rect x="10" y="14" width="460" height="254" rx="12" fill="none" stroke="#3a2f23" stroke-width="1.5" stroke-dasharray="5,4"/>
+        <text x="26" y="28" font-family="'Spectral',Georgia,serif" font-size="8.5" fill="#3a2f23" font-style="italic">Intent loop &mdash; Notice &middot; Spec &middot; Execute &middot; Observe</text>
+
+        <!-- Forge box — top-left input -->
+        <rect x="22" y="44" width="90" height="60" rx="9" fill="#211a13" stroke="#9A7F4E" stroke-width="1"/>
+        <text x="67" y="67" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="12" font-weight="700" fill="#C9A45C">Forge</text>
+        <line x1="34" y1="74" x2="100" y2="74" stroke="#3a2f23" stroke-width="0.8"/>
+        <text x="67" y="87" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#85795F">skills layer</text>
+
+        <!-- Inbox / Receipt feeds — top-right input -->
+        <rect x="356" y="44" width="110" height="60" rx="9" fill="#211a13" stroke="#9A7F4E" stroke-width="1"/>
+        <text x="411" y="63" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="9" font-weight="600" fill="#B3A890">Inbox</text>
+        <text x="411" y="76" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#85795F">Gmail · Apple Mail</text>
+        <text x="411" y="88" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#85795F">receipts</text>
+
+        <!-- Fieldbook centre box -->
+        <rect x="152" y="82" width="156" height="140" rx="10" fill="url(#fb-ag-fieldbook)" stroke="#E8772B" stroke-width="1.8"/>
+        <text x="230" y="108" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-size="15" font-weight="800" fill="#ECE3D4">Fieldbook</text>
+        <line x1="168" y1="117" x2="292" y2="117" stroke="#3a2f23" stroke-width="0.8"/>
+
+        <!-- LEDGER inner block — the spine, styled distinctly -->
+        <rect x="168" y="124" width="124" height="40" rx="7" fill="url(#fb-ag-ledger)" stroke="#C9A45C" stroke-width="1.4"/>
+        <text x="230" y="139" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="9" font-weight="600" fill="#C9A45C">LEDGER</text>
+        <text x="230" y="152" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="7.5" fill="#9A7F4E">append-only spine</text>
+
+        <!-- Pipeline stages text inside Fieldbook -->
+        <text x="230" y="178" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#B3A890">INTAKE &middot; COMPLY &middot; NARRATE &middot; EXPORT</text>
+
+        <!-- Conservation badge -->
+        <rect x="172" y="188" width="116" height="14" rx="4" fill="rgba(232,119,43,0.10)" stroke="#9A7F4E" stroke-width="0.8"/>
+        <text x="230" y="198" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="7.5" fill="#C9A45C">ledger is source of truth</text>
+
+        <!-- Persona branch — lower-left -->
+        <rect x="22" y="166" width="90" height="58" rx="9" fill="#211a13" stroke="#7E8A98" stroke-width="1"/>
+        <text x="67" y="186" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8.5" font-weight="600" fill="#AAB4C0">Persona</text>
+        <line x1="34" y1="192" x2="100" y2="192" stroke="#3a2f23" stroke-width="0.8"/>
+        <text x="67" y="205" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="7.5" fill="#85795F">1099 (Brien)</text>
+        <text x="67" y="217" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="7.5" fill="#85795F">W-2 (Dean)</text>
+
+        <!-- Projector PSA box — bottom-right output -->
+        <rect x="356" y="152" width="110" height="56" rx="9" fill="#211a13" stroke="#7E8A98" stroke-width="1.2"/>
+        <text x="411" y="172" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="9" font-weight="600" fill="#AAB4C0">Projector PSA</text>
+        <text x="411" y="184" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#7E8A98">CSV &middot; workbook</text>
+        <text x="411" y="196" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="7.5" fill="#5B6573">submission-ready</text>
+
+        <!-- Forge → Fieldbook arrow -->
+        <line x1="112" y1="74" x2="150" y2="130" stroke="#9A7F4E" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#fb-aarr)"/>
+        <text x="118" y="116" text-anchor="start" font-family="'Spectral',Georgia,serif" font-size="7" fill="#9A7F4E" font-style="italic">skills</text>
+
+        <!-- Inbox → Fieldbook arrow -->
+        <line x1="356" y1="74" x2="310" y2="120" stroke="#C9A45C" stroke-width="1.3" marker-end="url(#fb-aarr)"/>
+        <text x="340" y="104" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="7" fill="#9A7F4E" font-style="italic">receipts</text>
+
+        <!-- Persona → Fieldbook arrow -->
+        <line x1="112" y1="192" x2="150" y2="180" stroke="#7E8A98" stroke-width="1.2" marker-end="url(#fb-aarr-steel)"/>
+        <text x="118" y="186" text-anchor="start" font-family="'Spectral',Georgia,serif" font-size="7" fill="#85795F" font-style="italic">config</text>
+
+        <!-- Fieldbook → Projector arrow -->
+        <line x1="308" y1="168" x2="354" y2="175" stroke="#E8772B" stroke-width="1.6" marker-end="url(#fb-aarr-out)"/>
+        <text x="326" y="164" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="7" fill="#9A7F4E" font-style="italic">export</text>
+
+        <!-- Intent loop corner arrow suggesting cycle -->
+        <path d="M460,40 Q470,149 460,258" fill="none" stroke="#3a2f23" stroke-width="1" stroke-dasharray="4,5" marker-end="url(#fb-aarr)"/>
+
+        <!-- Bottom label -->
+        <text x="237" y="296" text-anchor="middle" font-family="'Spectral',Georgia,serif" font-size="8" fill="#85795F">Forge &amp; Inbox &rarr; Fieldbook (ledger spine) &rarr; Projector PSA &nbsp;&middot;&nbsp; governed by Intent loop</text>
+      </svg>
+    </div>
+
+  </div>
+</div></section>
+
 <section id="veil" class="veil-section"><div class="wrap">
   <div class="kicker">Behind the veil</div>
   <h2>How Fieldbook was forged.</h2>
