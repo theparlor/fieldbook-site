@@ -1,0 +1,15 @@
+{
+  "id": "2026-10-02-claude-core-client-cleanup-b",
+  "provider": "claude",
+  "status": "complete",
+  "branch": "agent/claude/2026-10-02-core-client-cleanup-b",
+  "worktree": "../fieldbook-site-wt-2026-10-02-core-client-cleanup-b",
+  "base_commit": "9e08e6d",
+  "objective": "Neutralize client content per WS-DDR-153",
+  "owned_paths": [
+    "index.html,.intent"
+  ],
+  "started": "2026-10-02T17:20:35-04:00",
+  "handoff": ".agents/handoffs/2026-10-02-claude-core-client-cleanup-b.md",
+  "landed": "2026-10-02T17:44:06-04:00"
+}
