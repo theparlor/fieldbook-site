@@ -1,0 +1,16 @@
+{
+  "id": "2026-10-31-claude-page-purge-record",
+  "provider": "claude",
+  "status": "complete",
+  "branch": "agent/claude/2026-10-31-page-purge-record",
+  "worktree": "../fieldbook-site-wt-2026-10-31-page-purge-record",
+  "base_commit": "7e815be",
+  "objective": "record the 2026-10-31 name purge of this public repo's history: manifest, ledger row, KF-11 review in the handoff",
+  "owned_paths": [
+    ".intent/retirements",
+    ".agents/handoffs"
+  ],
+  "started": "2026-10-31T10:45:01-04:00",
+  "handoff": ".agents/handoffs/2026-10-31-claude-page-purge-record.md",
+  "landed": "2026-10-31T10:45:02-04:00"
+}
